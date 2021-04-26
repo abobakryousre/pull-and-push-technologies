@@ -15,6 +15,15 @@ io.on("connection", (socket) => {
     console.log("sendToTarget the following  ", data);
     socket.to(data.targetID).emit("recevieMessage", data.message);
   });
+
+  socket.on("joinGroup", (group) => {
+    console.log("join", group);
+    socket.join(group);
+  });
+
+  socket.on("sendToGroup", (data) => {
+    socket.to(data.group).emit("messageToGroup", data.message);
+  });
 });
 
 server.listen(3001, (err) => {
